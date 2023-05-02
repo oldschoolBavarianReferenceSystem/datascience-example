@@ -4,10 +4,12 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
 
 from pandas import Series, DataFrame
 
-# Source: https://de.wikipedia.org/wiki/Verwaltungsgliederung_Berlins
+# Source of districts: https://de.wikipedia.org/wiki/Verwaltungsgliederung_Berlins
 bezirke = ['Mitte',
            'Friedrichshain-Kreuzberg',
            'Pankow',
@@ -56,6 +58,7 @@ for i in range(len(bezirke)):
 print("-------------------------------------")
 print("")
 
+# Read one example dataset:
 df = pd.read_csv(prefix + "/" + str(2022) + "/" + "mitte.csv")
 
 print(df.describe())
@@ -66,3 +69,22 @@ print("Rangliste der ersten Vornamen:")
 print("-------------------------------------")
 print("")
 
+girls_firstname = df[(df.geschlecht=='w') & (df.position==1)]
+girls_firstname = girls_firstname.sort_values(by=['anzahl', 'vorname'], ascending=[False, True])
+
+sum = girls_firstname['anzahl'].sum()
+
+girls_firstname['promille']=girls_firstname['anzahl']*1000/sum
+print("Alle Girls Firstname: " + str(sum))
+print(girls_firstname.describe())
+print(girls_firstname.head(20))
+
+top20=girls_firstname.head(20)
+
+top20.plot()
+
+#matplotlib.use('gtk4agg') #qtagg')
+#matplotlib.use('qtagg')
+#plt.show()
+
+##plt.savefig('berlin.png', format='png')
