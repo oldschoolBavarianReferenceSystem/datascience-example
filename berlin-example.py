@@ -44,5 +44,25 @@ bezirke_filenames = ['mitte.csv',
 
 #csv = pd.read_csv("berlin/2022/")
 
+prefix="data/berlin"
+years=range(2012,2023)
+
+for y in years:
+    print(y)
+
 for i in range(len(bezirke)):
     print(str(i+1) + ": " + bezirke[i] + ' -> ' + bezirke_filenames[i])
+
+print("-------------------------------------")
+print("")
+
+df = pd.read_csv(prefix + "/" + str(2022) + "/" + "mitte.csv")
+
+print(df.describe())
+print(df.head())
+
+print("")
+print("Rangliste der ersten Vornamen:")
+print("-------------------------------------")
+print("")
+
